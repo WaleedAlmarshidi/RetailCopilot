@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css",
+      "PackagePath": "staticwebassets/RetailCopilot.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/icon-black.png",
+      "PackagePath": "staticwebassets/icon-black.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/main.js",
+      "PackagePath": "staticwebassets/main.js"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.RetailCopilot.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.RetailCopilot.props",
+      "PackagePath": "build\\RetailCopilot.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.RetailCopilot.props",
+      "PackagePath": "buildMultiTargeting\\RetailCopilot.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.RetailCopilot.props",
+      "PackagePath": "buildTransitive\\RetailCopilot.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
