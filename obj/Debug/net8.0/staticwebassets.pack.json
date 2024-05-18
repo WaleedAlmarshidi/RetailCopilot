@@ -1,51 +1,51 @@
 {
   "Files": [
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css",
       "PackagePath": "staticwebassets/RetailCopilot.bundle.scp.css"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/1star.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/1star.png",
       "PackagePath": "staticwebassets/1star.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/2stars.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/2stars.png",
       "PackagePath": "staticwebassets/2stars.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/3stars.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/3stars.png",
       "PackagePath": "staticwebassets/3stars.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/4stars.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/4stars.png",
       "PackagePath": "staticwebassets/4stars.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/5stars.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/5stars.png",
       "PackagePath": "staticwebassets/5stars.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/app.css",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/app.css",
       "PackagePath": "staticwebassets/app.css"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css",
       "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css.map",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css.map",
       "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/favicon.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/favicon.png",
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/icon-black.png",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/icon-black.png",
       "PackagePath": "staticwebassets/icon-black.png"
     },
     {
-      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/main.js",
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/main.js",
       "PackagePath": "staticwebassets/main.js"
     },
     {

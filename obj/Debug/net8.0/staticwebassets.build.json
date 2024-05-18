@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VcuaLkISR4Uhym2bE5qtGFbKp5E0NbP0jfatdYEbVSE=",
+  "Hash": "Tjmv3kS2e2zu3LTtxzNBXMFcVctJzpwHr6hppv3ZrJI=",
   "Source": "RetailCopilot",
   "BasePath": "_content/RetailCopilot",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "RetailCopilot/wwwroot",
       "Source": "RetailCopilot",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/RetailCopilot.styles.css",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/RetailCopilot.styles.css",
       "SourceId": "RetailCopilot",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "RetailCopilot.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/RetailCopilot.styles.css"
+      "OriginalItemSpec": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/bundle/RetailCopilot.styles.css"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css",
       "SourceId": "RetailCopilot",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "RetailCopilot.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css"
+      "OriginalItemSpec": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/scopedcss/projectbundle/RetailCopilot.bundle.scp.css"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/1star.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/1star.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "1star.png",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot/1star.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/2stars.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/2stars.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "2stars.png",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot/2stars.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/3stars.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/3stars.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "3stars.png",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot/3stars.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/4stars.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/4stars.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "4stars.png",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot/4stars.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/5stars.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/5stars.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "5stars.png",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot/5stars.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/app.css",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/app.css",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot/app.css"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot/bootstrap/bootstrap.min.css"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css.map",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/bootstrap/bootstrap.min.css.map",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot/bootstrap/bootstrap.min.css.map"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/favicon.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/favicon.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot/favicon.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/icon-black.png",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/icon-black.png",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "icon-black.png",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot/icon-black.png"
     },
     {
-      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/main.js",
+      "Identity": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/main.js",
       "SourceId": "RetailCopilot",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/",
+      "ContentRoot": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/wwwroot/",
       "BasePath": "_content/RetailCopilot",
       "RelativePath": "main.js",
       "AssetKind": "All",

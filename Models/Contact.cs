@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 namespace RetailCopilot;
 
-public enum LoyaltyBadge
+public enum LoyaltyBadgeEnum
 {
     Metal,
     Bronz,
@@ -52,7 +52,7 @@ public partial class Contact
     // public virtual Inquiry? LastInquiry { get; set; }
     public DateTime? LastInquiryAt { get; set; }
 
-    public LoyaltyBadge loyaltyBadge { get; set; }
+    public LoyaltyBadgeEnum? LoyaltyBadge { get; set; } = LoyaltyBadgeEnum.Metal;
     public short GetTotalSalesCount(){
         return (short)(this.PosOrderCount + this.SaleOrderCount);
     }
@@ -60,7 +60,7 @@ public partial class Contact
     {
         return (ushort)DateTime.UtcNow.Subtract(this.LastVisitDate.GetValueOrDefault()).TotalDays;
     }
-    private static double NormalCDF(double z)
+    private double NormalCDF(double z)
     {
         // Constants
         double p = 0.3275911;
@@ -76,10 +76,10 @@ public partial class Contact
 
         return 0.5 * (1.0 + sign * y);
     }
-    public LoyaltyBadge GetLoyaltyBadge ()
+    public LoyaltyBadgeEnum GetLoyaltyBadge ()
     {
         if (AverageTicketAmount == 0 && (SaleOrderCount + PosOrderCount) == 0)
-            return LoyaltyBadge.Metal;
+            return LoyaltyBadgeEnum.Metal;
 
         double AverageTicketZ = (double)((AverageTicketAmount is null ? 360 : AverageTicketAmount  - 360) / 375);
 
@@ -91,14 +91,14 @@ public partial class Contact
         var SalesCountCdf = NormalCDF(SalesCountZ);
         var SalesCountP = 1 - SalesCountCdf;
         if (AverageTicketP < 0.1 && SalesCountP < 0.3)
-            return LoyaltyBadge.Daimond;
+            return LoyaltyBadgeEnum.Daimond;
         else if (AverageTicketP < 0.1)
-            return LoyaltyBadge.Gold;
+            return LoyaltyBadgeEnum.Gold;
         else if (AverageTicketP > 0.7)
-            return LoyaltyBadge.Metal;
+            return LoyaltyBadgeEnum.Metal;
         else if (AverageTicketP > 0.5)
-            return LoyaltyBadge.Bronz;
-        return LoyaltyBadge.Silver;
+            return LoyaltyBadgeEnum.Bronz;
+        return LoyaltyBadgeEnum.Silver;
     }
 }
 public class SalesCopilotContact : Contact 

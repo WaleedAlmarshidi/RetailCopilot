@@ -5,6 +5,17 @@ namespace RetailCopilot.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
+    public override int SaveChanges()
+    {
+        foreach (var entry in ChangeTracker.Entries<Contact>())
+        {
+            if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+            {
+                entry.Entity.LoyaltyBadge = entry.Entity.GetLoyaltyBadge();
+            }
+        }
+        return base.SaveChanges();
+    }
     public virtual DbSet<Contact> Contacts { get; set; }
     // public virtual DbSet<DailyAggregatedResult> DailyAggregatedResults { get; set; }
     public virtual DbSet<DailyAggregatedPosSales> DailyAggregatedPosSales { get; set; }

@@ -195,7 +195,7 @@
                 phone = SearchTerm
             });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("http://faisalaldayel-bv.odoo.com/api/bv/contact", content);
+            var response = await httpClient.PostAsync("https://faisalaldayel-bv.odoo.com/api/bv/contact", content);
 
             if(response.IsSuccessStatusCode){
                 string jsonString = await response.Content.ReadAsStringAsync();
@@ -321,16 +321,16 @@
     private void changed(){
         Console.WriteLine("hi");
     }
-    private string GetLoyaltyColor(LoyaltyBadge loyaltyBadge)
+    private string GetLoyaltyColor(LoyaltyBadgeEnum loyaltyBadge)
     {
-        if(loyaltyBadge == LoyaltyBadge.Metal){
+        if(loyaltyBadge == LoyaltyBadgeEnum.Metal){
             return "1star.png";
         }
-        else if (loyaltyBadge == LoyaltyBadge.Bronz)
+        else if (loyaltyBadge == LoyaltyBadgeEnum.Bronz)
             return "2stars.png";
-        else if (loyaltyBadge == LoyaltyBadge.Daimond)
+        else if (loyaltyBadge == LoyaltyBadgeEnum.Daimond)
             return "5stars.png";
-        else if (loyaltyBadge == LoyaltyBadge.Gold)
+        else if (loyaltyBadge == LoyaltyBadgeEnum.Gold)
             return "4stars.png";
         return "3stars.png";
     }

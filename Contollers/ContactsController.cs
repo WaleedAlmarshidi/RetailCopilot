@@ -23,7 +23,7 @@ namespace RetailCopilot
             try{
                 if (contact.Phone is null)
                     return Results.BadRequest();
-                var contactWithSamePhone = dbContext.Contacts.Where(c => c.Phone.Contains(contact.Phone) || contact.Phone.Contains(c.Phone)).SingleOrDefault();
+                var contactWithSamePhone = dbContext.Contacts.Where(c => c.Phone.Trim().Contains(contact.Phone)).FirstOrDefault();
                 if (contactWithSamePhone is not null)
                 {
                     contactWithSamePhone.Name = contact.Name;
@@ -31,7 +31,7 @@ namespace RetailCopilot
                     contactWithSamePhone.Email = contact.Email;
                     contactWithSamePhone.Country = contact.Country;
                     await dbContext.SaveChangesAsync();
-                    return Results.Accepted("Contact Updated");
+                    return Results.Accepted("Contact Updated.");
                 }
                 dbContext.Contacts.Add(contact);
                 await dbContext.SaveChangesAsync();

@@ -4631,11 +4631,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/RetailCopilot.csproj",
+      "projectUniqueName": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/RetailCopilot.csproj",
       "projectName": "RetailCopilot",
-      "projectPath": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/RetailCopilot.csproj",
+      "projectPath": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/RetailCopilot.csproj",
       "packagesPath": "/Users/waleed.almarshidi/.nuget/packages/",
-      "outputPath": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/obj/",
+      "outputPath": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/waleed.almarshidi/.nuget/NuGet/NuGet.Config"

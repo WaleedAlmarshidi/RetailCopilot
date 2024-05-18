@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UB+Jgz6LOWB5X7s4G1tNv5r2JY1ePPKbhI3D6pGo3VISOwQjt/NTDB047kCWJ5vuOHGGunXNvMp1emGuSNS1yw==",
+  "dgSpecHash": "XiSHnEjB5mQ3pIpA+RmpZGSFGQgVrMfwGHv3GTW1VlzpHWmH4RhTHFLLLnkJ/APnmi+mwaCDcaJRj3KtIoqfCQ==",
   "success": true,
-  "projectFilePath": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/RetailCopilot.csproj",
+  "projectFilePath": "/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/RetailCopilot.csproj",
   "expectedPackageFiles": [
     "/Users/waleed.almarshidi/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/waleed.almarshidi/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
