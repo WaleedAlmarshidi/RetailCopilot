@@ -7,6 +7,7 @@
 @inject IJSRuntime js
 @using System.Text.Json;
 @using Microsoft.AspNetCore.Authorization
+@using System.Text
 
 <PageTitle>مركز العملاء</PageTitle>
 
@@ -21,8 +22,7 @@
             <input id="text-input" @onfocus="onInputFocus" @onblur="onInputBlur" type="text" class="form-control" @bind="SearchTerm" placeholder="5XXXXXXXX" @ondblclick="EraseSearchTerm" inputmode="numeric" />
         </div>
     </div>
-    <iframe id="indicator" src="https://lottie.host/embed/fc5418d4-36f8-41af-b48a-bf9f03cdc7f6/ugTR6AQf3C.json"></iframe>
-
+    
         @* <div class="animated-circle"></div> *@
         @* <iframe src="https://lottie.host/embed/a820b356-ddef-4cb0-97a9-f19b4ba72902/ZqFhuSbZ2R.json"></iframe> *@
         @* <iframe src="https://lottie.host/embed/4480ab10-91ff-4b73-aba4-d01f81866bf0/9rtNWE90l5.json"></iframe> *@
@@ -39,9 +39,11 @@
     @foreach (var contact in contacts)
     {
         <div class="row">
+            @* <img src="@GetLoyaltyColor(contact.GetLoyaltyBadge())"/> *@
             <div class="col">
                 <div class="card mt-6">
                     <div class="card-body">
+                        <img src="@GetLoyaltyColor(contact.GetLoyaltyBadge())" style="display: block; margin: auto; width: 5%;"/>
                         <div class="row">
                             <div class="col" style="text-align: center; font-size: xx-large;">
                                 @* <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> *@
@@ -149,6 +151,23 @@
             </div>
         </div>
     }
+    @if(contactNotFound)
+    {
+        <div class="d-flex flex-column align-items-center border-radius-5px p-5" 
+            style="background-color: rgba(255,255,255,0.37); z-index: 35;">
+            @* <div class="alert alert-danger text-center" role="alert">
+            </div> *@
+            <span style="color: #fff" class="mb-2"><strong>عذرًا!</strong> لم أعثر على أي نتائج</span>
+            <input id="contactName" @onfocus="onInputFocus" @onblur="onInputBlur" type="text" 
+                class="form-control" @bind="newContactName" placeholder="إسم العميل" 
+                inputmode="text"
+                style="color: black; width: 60%;"/>
+            <button style="z-index: 33;" type="submit"
+                class="w-50 btn btn-lg btn-primary mt-5 mb-5"
+                @onclick="createNewContact">تسجيل العميل</button>
+        </div>
+    }
+    <iframe id="indicator" src="https://lottie.host/embed/fc5418d4-36f8-41af-b48a-bf9f03cdc7f6/ugTR6AQf3C.json"></iframe>
 
 </AuthorizeView>
 
@@ -156,19 +175,65 @@
     private int currentCount = 0;
 
     private bool showContent = false;
+    private bool contactNotFound = false;
     private List<SalesCopilotContact>? contacts = new List<SalesCopilotContact>();
     private string _searchTerm = string.Empty;
+    private string newContactName = string.Empty;
 
-    protected override async Task OnInitializedAsync()
-    {
-        @* await js.InvokeVoidAsync("/wwwroot/main.js", "Input has been focused"); *@
+    private async Task createNewContact(){
+        try{
+            if(string.IsNullOrEmpty(newContactName) || newContactName.Length < 2 || string.IsNullOrEmpty(SearchTerm) || SearchTerm.Length < 7){
+                await js.InvokeVoidAsync("animateInputShake");
+                newContactName = string.Empty;
+                return;
+            }
+            Console.WriteLine("Creating new contact");
+            var httpClient = new HttpClient();
+            var json = JsonSerializer.Serialize(new
+            {
+                name = newContactName,
+                phone = SearchTerm
+            });
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("http://faisalaldayel-bv.odoo.com/api/bv/contact", content);
+
+            if(response.IsSuccessStatusCode){
+                string jsonString = await response.Content.ReadAsStringAsync();
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    JsonElement root = doc.RootElement;
+                    int resultId = root.GetProperty("result").GetInt32();
+
+                    dbContext.Contacts.Add(new Contact
+                    {
+                        Id = resultId, // Use the ID from the response
+                        Name = newContactName,
+                        Phone = SearchTerm
+                    });
+                    await dbContext.SaveChangesAsync(); // Save changes asynchronously
+
+                    Console.WriteLine($"Success, {response.StatusCode}, {response.RequestMessage}, ID fetched: {resultId}");
+                }
+                Console.WriteLine($"Success, {response.StatusCode}, {response.RequestMessage}, {response.Content.ReadAsStringAsync().Result}");
+            }else{
+                Console.WriteLine($"Error, {response.StatusCode}, {response.RequestMessage}");
+            }
+            SearchTerm = newContactName = string.Empty;
+            contactNotFound = false;
+
+            StateHasChanged();
+            await dbContext.SaveChangesAsync();
+        }
+        catch(Exception e){
+            throw e;
+            Console.WriteLine($"Error in createNewContact {e.Message}");
+        }
     }
-
     private void EraseSearchTerm(){
         SearchTerm = string.Empty;
+        contactNotFound = false; 
     }
     private async Task onInputBlur(){
-        Console.WriteLine("blur");
         if(showContent)
         {
             await js.InvokeVoidAsync("hideIndicator");
@@ -177,10 +242,7 @@
         await js.InvokeVoidAsync("animateInputBlur");
     }
     private async Task onInputFocus(){
-        Console.WriteLine("focus");
         await js.InvokeVoidAsync("animateInputFocus");
-        
-
     }
     public string SearchTerm
     {
@@ -190,13 +252,18 @@
             if (_searchTerm != value)
             {
                 _searchTerm = value;
+                contactNotFound = false;
                 // Call the method to perform the action on change
                 if (_searchTerm.Length > 7)
                 {
                     SearchContacts();
                 }
                 else
+                {
+                    contactNotFound = true; 
                     showContent = false;
+                    StateHasChanged();
+                }
             }
         }
     }
@@ -204,7 +271,7 @@
     private async void SearchContacts()
     {
         var originalContacts = dbContext.Contacts
-                        .Where(c => c.Phone.Contains(SearchTerm))
+                        .Where(c => c.Phone.Trim().Contains(SearchTerm))
                         .Include(c => c.LastPosSale)
                         .ThenInclude(s => s.Pos);
         
@@ -227,6 +294,13 @@
             LastPosSale = c.LastPosSale,
         }).ToList();
 
+        if (contacts.Count == 0)
+        {
+            contactNotFound = true;
+            showContent = false;
+            StateHasChanged();
+            return;
+        }
         foreach (var contact in contacts)
         {
             if (contact.LastPosSale is null)
@@ -236,6 +310,7 @@
                 ContactInquired = contact,
                 Pos = dbContext.Pos
             }); *@
+            contact.GetLoyaltyBadge();
             contact.purchasedProducts = JsonSerializer.Deserialize<List<Product>>(contact.LastPosSale.PurchasedProducts);
         }
         showContent = true;
@@ -245,6 +320,19 @@
     }
     private void changed(){
         Console.WriteLine("hi");
+    }
+    private string GetLoyaltyColor(LoyaltyBadge loyaltyBadge)
+    {
+        if(loyaltyBadge == LoyaltyBadge.Metal){
+            return "1star.png";
+        }
+        else if (loyaltyBadge == LoyaltyBadge.Bronz)
+            return "2stars.png";
+        else if (loyaltyBadge == LoyaltyBadge.Daimond)
+            return "5stars.png";
+        else if (loyaltyBadge == LoyaltyBadge.Gold)
+            return "4stars.png";
+        return "3stars.png";
     }
     private void IncrementCount()
     {

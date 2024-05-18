@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets/RetailCopilot.bundle.scp.css"
     },
     {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/1star.png",
+      "PackagePath": "staticwebassets/1star.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/2stars.png",
+      "PackagePath": "staticwebassets/2stars.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/3stars.png",
+      "PackagePath": "staticwebassets/3stars.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/4stars.png",
+      "PackagePath": "staticwebassets/4stars.png"
+    },
+    {
+      "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/5stars.png",
+      "PackagePath": "staticwebassets/5stars.png"
+    },
+    {
       "Id": "/Users/waleed.almarshidi/Desktop/Business Var/RetailCopilot/wwwroot/app.css",
       "PackagePath": "staticwebassets/app.css"
     },
