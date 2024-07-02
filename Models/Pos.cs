@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using RetailCopilot.Data;
 
 namespace RetailCopilot;
 
@@ -15,4 +16,6 @@ public partial class Pos
     public string? Address { get; set; }
     public string? CompanyName { get; set; }
     public virtual Contact? Manager { get; set; }
+    // public ICollection<Employee>? Employees { get; set; }
+    public ICollection<ApplicationUser>? Users { get; set; }
 }

@@ -9,7 +9,7 @@ while True:
     domain = [
         ('edi_state', '=', 'to_send'),
         ('state', '=', 'posted'),
-        ('invoice_type', '=', 'restaurant'),
+        ('invoice_type', 'in', ['restaurant', 'reservation', 'customer']),
         ('invoice_date', '>', '2024-03-01 00:00:00'),
     ]
     invs = env["account.move"].search(
@@ -44,6 +44,13 @@ invs = env["account.move"].search(
 )
 len(invs)
 
+invs = env['account.move'].search([
+   ('state', '=', 'draft'),
+   ('x_studio_isvalidated', '=', True),
+   ('invoice_type', '=', 'restaurant'),
+   ('invoice_date', '>', '2024-06-01 00:00:00')
+], order='name asc')
+print(len(invs))
 
 count = 0
 while True:
@@ -77,7 +84,40 @@ while True:
     else:
         break
 
+count = 0
+limit = 5
+dates = [
+    # ('2024-04-01', '2024-04-02'),
+    ('2024-04-04', '2024-04-04'),
+    ('2024-04-08', '2024-04-08'),
+    ('2024-04-10', '2024-04-12'),
+    ('2024-04-14', '2024-04-17'),
+    ('2024-04-19', '2024-04-19'),
+    ('2024-04-21', '2024-04-22'),
+    ('2024-04-26', '2024-04-28'),
+]
 
+for start_date, end_date in dates:
+    while True:
+        domain = [
+            ('state', '=', 'draft'),
+            ('invoice_type','=', 'customer'),
+            ('invoice_date', '>=', f'{start_date} 00:00:00'),
+            ('invoice_date', '<=', f'{end_date} 23:59:59')
+        ]
+        print(start_date, end_date)
+        invs = env["account.move"].search(
+            domain, order='name asc', limit=limit
+        )
+        print(f'length: {len(invs)}')
+        
+        if invs:
+            invs.action_post()
+            env.cr.commit()
+            count += len(invs)  # Increment by the actual number of invoices processed
+            print(count)
+        else:
+            break
 
 
 

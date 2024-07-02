@@ -1,0 +1,49 @@
+@page "/salesHub"
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject ISalesService SalesService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@attribute [Authorize]
+
+<PageTitle>مركز المبيعات</PageTitle>
+
+@if (salesReports == null)
+{
+    <p>Loading...</p>
+}
+else if (salesReports.Count == 0)
+{
+    <p>No sales data available.</p>
+}
+else
+{
+    var groupedReports = salesReports.GroupBy(sr => sr.PosName).ToList();
+
+    <div class="container">
+        @foreach (var group in groupedReports)
+        {
+            <PosSalesSection PosName="@group.Key" SalesReports="@group"></PosSalesSection>
+        }
+    </div>
+}
+
+@code {
+    private List<EmployeeSalesReport> salesReports;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var isAdminOrSalesManager = user.IsInRole("Admin") || user.IsInRole("SalesManager");
+
+            salesReports = await SalesService.GetSalesReportGroupedByEmployeesAsync(user, isAdminOrSalesManager);
+        }
+    }
+}

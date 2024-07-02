@@ -2,9 +2,9 @@
     appearance: none;
     cursor: pointer;
     width: 0.5rem;
-    height: 2.5rem;
+    height: auto;
     color: white;
-    position: absolute;
+    position: fixed;
     top: 0.5rem;
     right: 1rem;
     /* align-items: center; */

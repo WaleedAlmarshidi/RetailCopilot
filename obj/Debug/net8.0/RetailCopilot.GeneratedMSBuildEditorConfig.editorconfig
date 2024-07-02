@@ -194,6 +194,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/Components/Pages/PosSalesSection.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Qb3NTYWxlc1NlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/Components/Pages/SalesHub.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TYWxlc0h1Yi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9XZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

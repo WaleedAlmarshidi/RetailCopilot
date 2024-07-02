@@ -5,6 +5,7 @@ using System;
 using System.Text.Json;
 using RetailCopilot.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace RetailCopilot
 {
@@ -22,6 +23,10 @@ namespace RetailCopilot
             try {
                 var contactWithSamePhone = dbContext.Contacts.Where(c => c.Phone.Contains(posSale.CustomerPhone)).FirstOrDefault();
                 posSale.PurchasedProducts = JsonSerializer.Serialize(posSale.PurchasedProductsSerialised);
+                var EmployeeExternalIdExists = dbContext.Users.Any(e => e.ExternalId == posSale.EmployeeExternalId);
+                if (EmployeeExternalIdExists is false)
+                    posSale.EmployeeExternalId = "0"; // default to admin
+
                 if (contactWithSamePhone is not null)
                 {
                     if (contactWithSamePhone.LastPosSaleId == posSale.Id)
@@ -89,11 +94,16 @@ namespace RetailCopilot
         public async Task<IResult> insert([FromBody] PosSale posSale)
         {
             try{
+
                 if (posSale.Id == 0)
                     return Results.BadRequest();
+
+                var EmployeeExternalIdExists = await dbContext.Users.AnyAsync(e => e.ExternalId == posSale.EmployeeExternalId);
+                if (EmployeeExternalIdExists is false)
+                    posSale.EmployeeExternalId = "0"; // default to admin
+
                 if (posSale.CustomerPhone is not null)
                 {
-                    Console.WriteLine(posSale.CustomerPhone);
                     var contactWithSamePhone = dbContext.Contacts.Where(c => c.Phone.Contains(posSale.CustomerPhone)).SingleOrDefault();
                     posSale.PurchasedProducts = JsonSerializer.Serialize(posSale.PurchasedProductsSerialised);
                     if (contactWithSamePhone is not null)

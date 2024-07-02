@@ -334,3 +334,10 @@
 /Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/RetailCopilot.pdb
 /Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/RetailCopilot.genruntimeconfig.cache
 /Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/obj/Debug/net8.0/ref/RetailCopilot.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/ClosedXML.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/DocumentFormat.OpenXml.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/ExcelNumberFormat.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/Irony.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/SixLabors.Fonts.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/System.IO.Packaging.dll
+/Users/waleed.almarshidi/Desktop/Business Var/Dev/RetailCopilot/bin/Debug/net8.0/XLParser.dll

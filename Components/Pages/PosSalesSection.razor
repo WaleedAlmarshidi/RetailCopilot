@@ -1,0 +1,42 @@
+@* @using YourNamespace.Models *@
+@using System.Collections.Generic
+
+<div class="pos-section">
+    <button class="btn btn-link" @onclick="ToggleCollapse">
+        @PosName
+    </button>
+    <div class="collapse @(isCollapsed ? "show" : "")">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Total Sales</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in SalesReports)
+                {
+                    <tr>
+                        <td>@report.EmployeeName</td>
+                        <td>@report.TotalSales</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string PosName { get; set; }
+
+    [Parameter]
+    public IEnumerable<EmployeeSalesReport> SalesReports { get; set; }
+
+    private bool isCollapsed = false;
+
+    private void ToggleCollapse()
+    {
+        isCollapsed = !isCollapsed;
+    }
+}

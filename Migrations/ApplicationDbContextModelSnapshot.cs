@@ -22,6 +22,21 @@ namespace RetailCopilot.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ApplicationUserPos", b =>
+                {
+                    b.Property<string>("AuthorizedPointOfSalesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AuthorizedPointOfSalesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserAuthorizedPointOfSales", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -273,12 +288,26 @@ namespace RetailCopilot.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -309,11 +338,20 @@ namespace RetailCopilot.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(256)")
+                        .UseCollation("Arabic_CI_AS");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -408,8 +446,7 @@ namespace RetailCopilot.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Employee")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Margin")
                         .HasColumnType("float");
@@ -450,6 +487,14 @@ namespace RetailCopilot.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EmployeeExternalId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)")
+                        .HasDefaultValue("0");
+
                     b.Property<double?>("Margin")
                         .HasColumnType("float");
 
@@ -464,6 +509,8 @@ namespace RetailCopilot.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeExternalId");
 
                     b.HasIndex("PosId");
 
@@ -498,6 +545,70 @@ namespace RetailCopilot.Migrations
                     b.ToTable("ShopVisitsCount");
                 });
 
+            modelBuilder.Entity("RetailCopilot.Tenant", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AdminUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContactEmail")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Domain")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("ExternalCompanyId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Locale")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("en");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Plan")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("basic");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("active");
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TenantId");
+
+                    b.ToTable("Tenants");
+                });
+
             modelBuilder.Entity("RetailCopilot.Violation", b =>
                 {
                     b.Property<int>("Id")
@@ -518,12 +629,15 @@ namespace RetailCopilot.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Violations");
                 });
@@ -562,6 +676,21 @@ namespace RetailCopilot.Migrations
                     b.HasIndex("ViolationId");
 
                     b.ToTable("ViolationRecords");
+                });
+
+            modelBuilder.Entity("ApplicationUserPos", b =>
+                {
+                    b.HasOne("RetailCopilot.Pos", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorizedPointOfSalesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetailCopilot.Data.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -671,11 +800,21 @@ namespace RetailCopilot.Migrations
 
             modelBuilder.Entity("RetailCopilot.PosSale", b =>
                 {
+                    b.HasOne("RetailCopilot.Data.ApplicationUser", "Employee")
+                        .WithMany("PosSales")
+                        .HasForeignKey("EmployeeExternalId")
+                        .HasPrincipalKey("ExternalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_PosSales_Users_EmployeeExternalId");
+
                     b.HasOne("RetailCopilot.Pos", "Pos")
                         .WithMany()
                         .HasForeignKey("PosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Pos");
                 });
@@ -708,6 +847,11 @@ namespace RetailCopilot.Migrations
                     b.Navigation("Pos");
 
                     b.Navigation("Violation");
+                });
+
+            modelBuilder.Entity("RetailCopilot.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("PosSales");
                 });
 #pragma warning restore 612, 618
         }

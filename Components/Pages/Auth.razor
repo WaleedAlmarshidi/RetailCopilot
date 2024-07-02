@@ -1,6 +1,11 @@
 ﻿@page "/auth"
 
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using RetailCopilot.Data
+@using System.Security.Claims
+@inject UserManager<ApplicationUser> _userManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @attribute [Authorize]
 
@@ -8,6 +13,16 @@
 
 <h1>You are authenticated</h1>
 
-<AuthorizeView>
-    Hello @context.User.Identity?.Name!
+<AuthorizeView Roles="admin">
+    Hello @context.User.Identity?.Name
 </AuthorizeView>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authUser = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authUser.User;
+        var managedUser = await _userManager.GetUserAsync(user);
+    }
+}

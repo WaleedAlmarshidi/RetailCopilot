@@ -42,14 +42,14 @@
                 </div>
                 <div class="mt-2" style="text-align: end;">
                     <p>
-                        <a href="Account/ForgotPassword">نسيت كلمة السر?</a>
+                        <a href="Account/ForgotPassword">نسيت كلمة السر؟</a>
                     </p>
                     <p>
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
+                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">تسجيل مستخدم جديد</a>
                     </p>
-                    <p>
+                    @* <p>
                         <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                    </p> *@
                 </div>
             </EditForm>
         </section>
@@ -114,7 +114,6 @@
     private sealed class InputModel
     {
         [Required]
-        [EmailAddress]
         public string Email { get; set; } = "";
 
         [Required]

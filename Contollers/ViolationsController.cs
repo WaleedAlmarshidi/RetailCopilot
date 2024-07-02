@@ -18,16 +18,16 @@ namespace RetailCopilot
         }
 
         [HttpPost]
-        public async Task<IResult> Insert([FromBody] Violation violation)
+        public async Task<IActionResult> Insert([FromBody] Violation violation)
         {
             try{
                 dbContext.Violations.Add(violation);
                 await dbContext.SaveChangesAsync();
-                return Results.Created();
             }
             catch {
-                return Results.BadRequest("bad");
+                return BadRequest("bad");
             }
+            return Ok(violation);
         }
         // action methods go here
             // GET api/Products

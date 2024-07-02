@@ -26,10 +26,43 @@ a {
 .informationBucketDetail span{
     color: black;
 }
+.pos-section {
+    margin-bottom: 1rem;
+    border: 1px solid #B1A8B9;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    right: 0;
+}
+
+.pos-section .btn-link {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    text-decoration: none;
+    /* color: #007bff; */
+}
+
+.pos-section .btn-link:hover {
+    /* text-decoration: underline; */
+    color: #7D5CA1;
+}
+
+.pos-section .collapse {
+    /* margin-top: 10px;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #7D5CA1;
+    background-color: #1b2024;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #7D5CA1;
+    background-color: #1b2024; */
+}
 hr {
     border-top: 2px solid black;
     margin: 2px;
     margin-bottom: 2rem;
+}
+td {
+    /* color: #000; */
 }
 iframe {
     transform: rotate(90deg);

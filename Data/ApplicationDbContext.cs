@@ -1,23 +1,14 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace RetailCopilot.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
-    public override int SaveChanges()
-    {
-        foreach (var entry in ChangeTracker.Entries<Contact>())
-        {
-            if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
-            {
-                entry.Entity.LoyaltyBadge = entry.Entity.GetLoyaltyBadge();
-            }
-        }
-        return base.SaveChanges();
-    }
+    public virtual DbSet<Tenant> Tenants { get; set; }
+    // public virtual DbSet<Partner> Partners { get; set; }
     public virtual DbSet<Contact> Contacts { get; set; }
-    // public virtual DbSet<DailyAggregatedResult> DailyAggregatedResults { get; set; }
     public virtual DbSet<DailyAggregatedPosSales> DailyAggregatedPosSales { get; set; }
     public virtual DbSet<PosOrder> PosOrders { get; set; }
     public virtual DbSet<PosSale> PosSales { get; set; }
@@ -34,6 +25,45 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Tenant>(entity =>
+        {
+            entity.HasKey(e => e.TenantId);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            entity.Property(e => e.Domain)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            entity.Property(e => e.ContactEmail)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasDefaultValue("active");
+
+            entity.Property(e => e.Plan)
+                .HasMaxLength(50)
+                .HasDefaultValue("basic");
+
+            entity.Property(e => e.Locale)
+                .HasMaxLength(50)
+                .HasDefaultValue("en");
+
+            entity.Property(e => e.Theme)
+                .HasMaxLength(255);
+        });
+        modelBuilder.Entity<Violation>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.HasIndex(e => e.Name)
+                .IsUnique();
+        });
         modelBuilder.Entity<Contact>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Contact (res.partner)");
@@ -53,8 +83,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.ZidId).HasColumnName("ZID_ID");
             entity.HasIndex(e => e.Phone);
         });
+
         modelBuilder.Entity<ShopVisitCount>()
             .HasKey(svc => new { svc.Date, svc.PosId });
+
         modelBuilder.Entity<PosOrder>(entity =>
         {
             entity.Property(e => e.Id)
@@ -64,7 +96,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.CustomerPhone)
                 .HasMaxLength(50)
                 .HasColumnName("Customer_Phone");
-            entity.Property(e => e.Employee).HasMaxLength(50);
             entity.Property(e => e.Pos)
                 .HasMaxLength(50)
                 .HasColumnName("POS");
@@ -84,7 +115,85 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.CustomerPhone)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-        });
-    }
 
+            entity.Property(e => e.EmployeeExternalId)
+                .HasMaxLength(255)
+                .IsRequired()
+                .HasDefaultValue("0")   // Ensure the length matches the PrincipalKey
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Employee)
+                .WithMany(p => p.PosSales)
+                .HasPrincipalKey(p => p.ExternalId)
+                .HasForeignKey(ps => ps.EmployeeExternalId)
+                .HasConstraintName("FK_PosSales_Users_EmployeeExternalId")
+                .OnDelete(DeleteBehavior.Restrict);  // Ensure cascade delete behavior
+        });
+
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.Property(e => e.UserName)
+                .IsUnicode(true);
+
+            entity.Property(e => e.Id)
+                .HasValueGenerator<GuidValueGenerator>();
+
+            entity.HasMany(u => u.AuthorizedPointOfSales)
+                .WithMany(p => p.Users)
+                .UsingEntity(j => j.ToTable("UserAuthorizedPointOfSales"));
+
+            entity.Property(e => e.ExternalId)
+                .HasMaxLength(255)
+                .IsRequired();
+
+            entity.HasIndex(e => e.ExternalId)
+                .IsUnique();
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .IsUnicode(true)
+                .IsRequired();
+            // Any other configuration for ApplicationUser
+        });
+        
+        modelBuilder.Entity<ApplicationUser>()
+               .Property(e => e.UserName)
+               .UseCollation("Arabic_CI_AS");
+        modelBuilder.Entity<ApplicationUser>()
+               .Property(e => e.UserName)
+               .IsUnicode(true);
+        // modelBuilder.Entity<Partner>(entity =>
+        // {
+        //     entity.HasKey(e => e.Id);
+
+        //     entity.Property(e => e.FirstName)
+        //         .IsRequired()
+        //         .HasMaxLength(255);
+
+        //     entity.Property(e => e.LastName)
+        //         .IsRequired()
+        //         .HasMaxLength(255);
+
+        //     entity.Property(e => e.Email)
+        //         .IsRequired()
+        //         .HasMaxLength(255);
+
+        //     entity.Property(e => e.CreatedAt)
+        //         .HasDefaultValueSql("GETUTCDATE()");
+
+        //     entity.Property(e => e.UpdatedAt)
+        //         .HasDefaultValueSql("GETUTCDATE()");
+
+        //     entity.Property(e => e.ExternalId)
+        //         .IsRequired()
+        //         .HasConversion(v => v, v => v)
+        //         .HasMaxLength(255);
+
+        //     entity.HasIndex(e => e.ExternalId)
+        //         .IsUnique();
+        //     // entity.HasOne(e => e.Tenant)
+        //     //     .WithMany(t => t.Employees)
+        //     //     .HasForeignKey(e => e.TenantId)
+        //     //     .OnDelete(DeleteBehavior.Cascade);
+        // });
+    }
 }

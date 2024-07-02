@@ -9,13 +9,14 @@
 
 main[b-el1nai9jpu] {
     flex: 1;
-    overflow: hidden;
-    position: relative;
+    overflow-y: auto;
+    position: sticky;
 }
 
 .sidebar[b-el1nai9jpu] {
     background-image: linear-gradient(270deg, #000 0%, #B1A8B9 1000%);
     box-shadow: inset;
+    height: auto;
 }
 
 .top-row[b-el1nai9jpu] {
@@ -105,9 +106,9 @@ main[b-el1nai9jpu] {
     appearance: none;
     cursor: pointer;
     width: 0.5rem;
-    height: 2.5rem;
+    height: auto;
     color: white;
-    position: absolute;
+    position: fixed;
     top: 0.5rem;
     right: 1rem;
     /* align-items: center; */

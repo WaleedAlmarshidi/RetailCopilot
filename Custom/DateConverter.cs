@@ -13,6 +13,6 @@ public class CustomDateTimeConverter : JsonConverter<DateTime>
 
     public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString("yyyy-MM-dd HH:mm:ss"));
     }
 }

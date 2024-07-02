@@ -11,7 +11,7 @@ public partial class ViolationRecord
     public int Id { get; set; }
     public int ViolationId { get; set; }
     [ForeignKey("ViolationId")]
-    public Violation Violation { get; set; } = null!;
+    public Violation? Violation { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime ViolatedAt { get; set; }
     public string PosId { get; set; } = null!;
