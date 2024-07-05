@@ -1,10 +1,13 @@
 ﻿namespace RetailCopilot;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using RetailCopilot.Data;
 
 public partial class Tenant
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid TenantId { get; set; }
 
     public string? ExternalCompanyId { get; set; }
@@ -39,5 +42,6 @@ public partial class Tenant
 
     public Guid? AdminUserId { get; set; }
 
-    // public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    public ICollection<Pos> Poss { get; set; } = new List<Pos>();
+    public ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 }

@@ -17,5 +17,7 @@ public partial class Pos
     public string? CompanyName { get; set; }
     public virtual Contact? Manager { get; set; }
     // public ICollection<Employee>? Employees { get; set; }
+    public Guid TenantId { get; set; }
+    public Tenant? Tenant { get; set; }
     public ICollection<ApplicationUser>? Users { get; set; }
 }

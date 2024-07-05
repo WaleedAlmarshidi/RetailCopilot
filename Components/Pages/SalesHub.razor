@@ -11,13 +11,44 @@
 
 <PageTitle>مركز المبيعات</PageTitle>
 
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="d-flex flex-wrap align-items-end">
+                <div class="me-2 flex-grow-1">
+                    <select id="dateRange" class="form-select" @onchange="OnDateRangeChange">
+                        <option value="Today">اليوم</option>
+                        <option value="LastDay">آخر يوم</option>
+                        <option value="ThisWeek">هذا الأسبوع</option>
+                        <option value="LastWeek">آخر أسبوع</option>
+                        <option value="ThisMonth">هذا الشهر</option>
+                        <option value="Custom">مخصص</option>
+                    </select>
+                </div>
+
+                @if (isCustomDateRange)
+                {
+                    <div class="me-2">
+                        <label for="startDate" class="form-label">تاريخ البداية</label>
+                        <input type="date" id="startDate" class="form-control" @bind="StartDate" />
+                    </div>
+                    <div class="me-2">
+                        <label for="endDate" class="form-label">تاريخ النهاية</label>
+                        <input type="date" id="endDate" class="form-control" @bind="EndDate" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 @if (salesReports == null)
 {
     <p>Loading...</p>
 }
 else if (salesReports.Count == 0)
 {
-    <p>No sales data available.</p>
+    <p>لا توجد بيانات، يرجى التواصل مع مدير حسابكم في حال وجود خطأ</p>
 }
 else
 {
@@ -33,9 +64,39 @@ else
 
 @code {
     private List<EmployeeSalesReport> salesReports;
-
+    private DateTime startDate = DateTime.Today;
+    private DateTime endDate = DateTime.Today;
+    private bool isCustomDateRange = false;
+    private DateTime EndDate
+    {
+        get => endDate;
+        set
+        {
+            endDate = value;
+            _ = LoadSalesReports();
+        }
+    }
+    private DateTime StartDate
+    {
+        get => startDate;
+        set
+        {
+            startDate = value;
+            _ = LoadSalesReports();
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
+        DateTime now = DateTime.Now;
+        startDate = now.StartOfDay();
+        endDate = now.EndOfDay();
+        await LoadSalesReports();
+    }
+
+    private async Task LoadSalesReports()
+    {
+        startDate = startDate.StartOfDay();
+        endDate = endDate.EndOfDay();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
@@ -43,7 +104,57 @@ else
         {
             var isAdminOrSalesManager = user.IsInRole("Admin") || user.IsInRole("SalesManager");
 
-            salesReports = await SalesService.GetSalesReportGroupedByEmployeesAsync(user, isAdminOrSalesManager);
+            salesReports = await SalesService.GetSalesReportGroupedByEmployeesAsync(user, isAdminOrSalesManager, startDate, endDate);
         }
+        StateHasChanged();
+    }
+
+    private async Task OnDateRangeChange(ChangeEventArgs e)
+    {
+        var selectedValue = e.Value.ToString();
+        DateTime now = DateTime.Now;
+
+        switch (selectedValue)
+        {
+            case "Today":
+                startDate = now.StartOfDay();
+                endDate = now.EndOfDay();
+                isCustomDateRange = false;
+                break;
+            case "LastDay":
+                startDate = now.AddDays(-1).StartOfDay();
+                endDate = now.AddDays(-1).EndOfDay();
+                isCustomDateRange = false;
+                break;
+            case "LastWeek":
+                startDate = now.AddDays(-7).StartOfDay();
+                endDate = now.AddDays(-7).EndOfDay();
+                isCustomDateRange = false;
+                break;
+            case "ThisWeek":
+                startDate = now.StartOfWeek(DayOfWeek.Sunday).StartOfDay();
+                endDate = now.EndOfDay();
+                isCustomDateRange = false;
+                break;
+            case "ThisMonth":
+                startDate = new DateTime(now.Year, now.Month, 1).StartOfDay();
+                endDate = now.EndOfDay();
+                isCustomDateRange = false;
+                break;
+            case "Custom":
+                isCustomDateRange = true;
+                break;
+            default:
+                isCustomDateRange = false;
+                break;
+        }
+
+        await LoadSalesReports(); // Reload the sales reports with the new date range
+    }
+
+    private async Task OnCustomDateRangeChange(ChangeEventArgs e)
+    {
+
+        await LoadSalesReports(); // Reload the sales reports with the custom date range
     }
 }

@@ -10,6 +10,25 @@ a, .btn-link {
 a {
     color: #fff;
 }
+
+.date-selection {
+    margin-bottom: 20px;
+}
+
+custom-date-range {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+custom-date-range input {
+    padding: 5px;
+}
+
+custom-date-range button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
 .informationBucket {
     display: inline-flex; 
     flex-flow: column;
@@ -115,6 +134,24 @@ input[type="text"] {
     /* Additional styles for the input if needed */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
+.date-selection {
+    margin-bottom: 20px;
+}
+
+.custom-date-range {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.custom-date-range input {
+    padding: 5px;
+}
+
+.custom-date-range button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
 input[type="text"]::placeholder{
     color: #B1A8B9;
 }
@@ -174,6 +211,7 @@ input[type="text"]:active:focus {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #7D5CA1;
   background-color: #1b2024;
+  color: #7D5CA1;
 }
 
 .content {

@@ -83,6 +83,17 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.ZidId).HasColumnName("ZID_ID");
             entity.HasIndex(e => e.Phone);
         });
+        modelBuilder.Entity<Pos>()
+            .HasOne(p => p.Tenant)
+            .WithMany(t => t.Poss)
+            .HasForeignKey(p => p.TenantId)
+            .OnDelete(DeleteBehavior.Cascade); // Configure the delete behavior as needed
+            
+        modelBuilder.Entity<ApplicationUser>()
+            .HasOne(p => p.Tenant)
+            .WithMany(t => t.Users)
+            .HasForeignKey(p => p.TenantId)
+            .OnDelete(DeleteBehavior.Cascade); // Configure the delete behavior as needed
 
         modelBuilder.Entity<ShopVisitCount>()
             .HasKey(svc => new { svc.Date, svc.PosId });

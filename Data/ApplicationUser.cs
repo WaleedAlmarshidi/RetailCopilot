@@ -13,11 +13,10 @@ public class ApplicationUser : IdentityUser
     // // Navigation property
     // public virtual Employee Employee { get; set; }
 
-    // [Required]
-    // [ForeignKey("Tenant")]
-    // public Guid TenantId { get; set; }
+    [Required]
+    public Guid TenantId { get; set; }
+    public Tenant? Tenant { get; set; }
     public override required string UserName { get; set; }
-    // public Tenant Tenant { get; set; }
     [Required]
     [MaxLength(255)]
     [Column(TypeName = "varchar(255)")]
