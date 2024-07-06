@@ -128,7 +128,7 @@ namespace RetailCopilot
                 //     posSale.Date = DateTime.Now.ToLocalTime();
                 // else
                 //     // UTC+3 (Moscow Timezone
-                posSale.Date = posSale.Date?.AddHours(3);
+                // posSale.Date = posSale.Date?.AddHours(3);
                 dbContext.PosSales.Add(posSale);
                 await dbContext.SaveChangesAsync();
                 return Results.Created();
