@@ -1,12 +1,11 @@
-@* @using YourNamespace.Models *@
 @using System.Collections.Generic
 
 <div class="pos-section">
-    <button class="btn btn-link" @onclick="ToggleCollapse">
+    <button class="btn btn-link main" @onclick="ToggleCollapse">
         @PosName
     </button>
     <div class="collapse @(isCollapsed ? "show" : "")">
-        <table class="table">
+        <table class="table table-borderless">
             <thead>
                 <tr>
                     <th>إسم الموظف</th>
@@ -17,9 +16,41 @@
                 @foreach (var report in SalesReports)
                 {
                     <tr>
-                        <td>@report.EmployeeName</td>
-                        <td>@report.TotalSales</td>
+                        <td>
+                            <button class="btn btn-link" @onclick="() => ToggleProductVisibility(report.EmployeeName)">
+                                @report.EmployeeName
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-link" @onclick="() => ToggleProductVisibility(report.EmployeeName)">
+                                @report.TotalSales
+                            </button>
+                        </td>
                     </tr>
+                    @if (EmployeeProductVisibility.ContainsKey(report.EmployeeName) && EmployeeProductVisibility[report.EmployeeName])
+                    {
+                        <tr>
+                            <td colspan="2">
+                                <table class="table mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="th-sub">إسم المنتج</th>
+                                            <th class="th-sub">الكمية</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var product in report.ProductsSold)
+                                        {
+                                            <tr>
+                                                <td class="td-sub">@product.Name</td>
+                                                <td class="td-sub">@product.Quantity</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
@@ -34,9 +65,22 @@
     public IEnumerable<EmployeeSalesReport> SalesReports { get; set; }
 
     private bool isCollapsed = false;
+    private Dictionary<string, bool> EmployeeProductVisibility { get; set; } = new Dictionary<string, bool>();
 
     private void ToggleCollapse()
     {
         isCollapsed = !isCollapsed;
+    }
+
+    private void ToggleProductVisibility(string employeeName)
+    {
+        if (EmployeeProductVisibility.ContainsKey(employeeName))
+        {
+            EmployeeProductVisibility[employeeName] = !EmployeeProductVisibility[employeeName];
+        }
+        else
+        {
+            EmployeeProductVisibility[employeeName] = true;
+        }
     }
 }

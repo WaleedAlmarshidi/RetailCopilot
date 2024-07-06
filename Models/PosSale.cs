@@ -44,4 +44,6 @@ public class EmployeeSalesReport
     public string EmployeeName { get; set; }
     public string PosName { get; set; }
     public decimal TotalSales { get; set; }
+    public List<Product> ProductsSold { get; set; }
+
 }

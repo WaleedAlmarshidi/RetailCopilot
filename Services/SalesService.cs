@@ -4,6 +4,7 @@ using RetailCopilot.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 public interface ISalesService
 {
@@ -26,6 +27,7 @@ public static class DateTimeExtensions
         return new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
     }
 }
+
 public class SalesService : ISalesService
 {
     private readonly ApplicationDbContext _context;
@@ -56,15 +58,45 @@ public class SalesService : ISalesService
 
         if (getAllPos)
         {
-            var GroupedSalesReports = Raw.GroupBy(ps => new { ps.Employee.UserName, ps.Pos.Name });
-
-            var salesReports = await GroupedSalesReports.Select(g => new EmployeeSalesReport
+            var rawSales = await Raw
+                .Select(ps => new
                 {
-                    EmployeeName = g.Key.UserName,
-                    PosName = g.Key.Name,
-                    TotalSales = (decimal)g.Sum(ps => ps.Total),
+                    ps.Employee,
+                    ps.Pos.Name,
+                    ps.Total,
+                    ps.PurchasedProducts
                 })
                 .ToListAsync();
+
+            var groupedSales = rawSales
+                .GroupBy(ps => new { ps.Employee, ps.Name })
+                .Select(g => new
+                {
+                    PosName = g.Key.Name,
+                    EmployeeName = g.Key.Employee.FullName,
+                    TotalSales = g.Sum(ps => ps.Total),
+                    Products = g.SelectMany(ps => 
+                        string.IsNullOrEmpty(ps.PurchasedProducts) 
+                        ? new List<Product>() 
+                        : JsonSerializer.Deserialize<List<Product>>(ps.PurchasedProducts) ?? new List<Product>())
+                })
+                .ToList();
+
+            // Aggregate product quantities
+            var salesReports = groupedSales.Select(s => new EmployeeSalesReport
+            {
+                PosName = s.PosName,
+                EmployeeName = s.EmployeeName,
+                TotalSales = (decimal)s.TotalSales,
+                ProductsSold = s.Products
+                    .GroupBy(p => p.Name)
+                    .Select(g => new Product
+                    {
+                        Name = g.Key,
+                        Quantity = g.Sum(p => p.Quantity)
+                    })
+                    .ToList()
+            }).ToList();
 
             return salesReports;
         }
@@ -74,33 +106,90 @@ public class SalesService : ISalesService
 
             if (claimsPrincipal.IsInRole("Seller"))
             {
-                var salesReports = await Raw
+                var rawSales = await Raw
                     .Where(ps => ps.EmployeeExternalId.Equals(user.ExternalId))
-                    .GroupBy(ps => new { ps.Employee.UserName, ps.Pos.Name })
-                    .Select(g => new EmployeeSalesReport
+                    .Select(ps => new
                     {
-                        PosName = g.Key.Name,
-                        EmployeeName = user.UserName,
-                        TotalSales = (decimal)g.Sum(ps => ps.Total)
+                        ps.Employee,
+                        ps.Pos.Name,
+                        ps.Total,
+                        ps.PurchasedProducts
                     })
                     .ToListAsync();
+
+                var groupedSales = rawSales
+                    .GroupBy(ps => new { ps.Employee, ps.Name })
+                    .Select(g => new
+                    {
+                        PosName = g.Key.Name,
+                        EmployeeName = g.Key.Employee.FullName,
+                        TotalSales = g.Sum(ps => ps.Total),
+                        Products = g.SelectMany(ps => 
+                            string.IsNullOrEmpty(ps.PurchasedProducts) 
+                            ? new List<Product>() 
+                            : JsonSerializer.Deserialize<List<Product>>(ps.PurchasedProducts) ?? new List<Product>())                    })
+                    .ToList();
+
+                // Aggregate product quantities
+                var salesReports = groupedSales.Select(s => new EmployeeSalesReport
+                {
+                    PosName = s.PosName,
+                    EmployeeName = s.EmployeeName,
+                    TotalSales = (decimal)s.TotalSales,
+                    ProductsSold = s.Products
+                        .GroupBy(p => p.Name)
+                        .Select(g => new Product
+                        {
+                            Name = g.Key,
+                            Quantity = g.Sum(p => p.Quantity)
+                        })
+                        .ToList()
+                }).ToList();
 
                 return salesReports;
             }
-
             if (claimsPrincipal.IsInRole("Branch-Manager"))
             {
-                // Fetch sales for authorized POS
-                var salesReports = await Raw
-                    .Where(ps => authorizedPosIds.Contains(ps.PosId)) // Filter by authorized POS IDs
-                    .GroupBy(ps => new { ps.Employee.UserName, ps.Pos.Name })
-                    .Select(g => new EmployeeSalesReport
+                var rawSales = await Raw
+                    .Where(ps => authorizedPosIds.Contains(ps.PosId))
+                    .Select(ps => new
                     {
-                        PosName = g.Key.Name,
-                        EmployeeName = g.Key.UserName,
-                        TotalSales = (decimal)g.Sum(ps => ps.Total),
+                        ps.Employee,
+                        ps.Pos.Name,
+                        ps.Total,
+                        ps.PurchasedProducts
                     })
                     .ToListAsync();
+
+                var groupedSales = rawSales
+                    .GroupBy(ps => new { ps.Employee, ps.Name })
+                    .Select(g => new
+                    {
+                        PosName = g.Key.Name,
+                        EmployeeName = g.Key.Employee.FullName,
+                        TotalSales = g.Sum(ps => ps.Total),
+                        Products = g.SelectMany(ps => 
+                            string.IsNullOrEmpty(ps.PurchasedProducts) 
+                            ? new List<Product>() 
+                            : JsonSerializer.Deserialize<List<Product>>(ps.PurchasedProducts) ?? new List<Product>())
+                    })
+                    .ToList();
+
+                // Aggregate product quantities
+                var salesReports = groupedSales.Select(s => new EmployeeSalesReport
+                {
+                    PosName = s.PosName,
+                    EmployeeName = s.EmployeeName,
+                    TotalSales = (decimal)s.TotalSales,
+                    ProductsSold = s.Products
+                        .GroupBy(p => p.Name)
+                        .Select(g => new Product
+                        {
+                            Name = g.Key,
+                            Quantity = g.Sum(p => p.Quantity)
+                        })
+                        .ToList()
+                }).ToList();
 
                 return salesReports;
             }

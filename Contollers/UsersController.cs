@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
+using Microsoft.EntityFrameworkCore;
 
 public class RegisterUserInputModel
 {
@@ -28,7 +29,11 @@ public class RegisterUserInputModel
 
     // Add other properties as needed
 }
-
+public class UserWithFullNameModel
+{
+    public string ExternalId { get; set; }
+    public string FullName { get; set; }
+}
 [ApiController]
 [Route("api/users")]
 public class UsersController : ControllerBase
@@ -82,6 +87,26 @@ public class UsersController : ControllerBase
             return BadRequest(result.Errors);
         }
 
+        _logger.LogInformation("User created a new account with password.");
+        
+        return Ok();
+    }
+    [HttpPatch("fullname")]
+    public async Task<IActionResult> PathFullNameUser([FromBody] UserWithFullNameModel input)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var user = await _userManager.Users.Where(u => u.UserName == input.ExternalId).FirstOrDefaultAsync();
+
+        if (user is null)
+        {
+            return NotFound();
+        }
+        user.FullName = input.FullName;
+        await _userManager.UpdateAsync(user);
         _logger.LogInformation("User created a new account with password.");
         
         return Ok();

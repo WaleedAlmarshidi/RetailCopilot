@@ -57,6 +57,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.Theme)
                 .HasMaxLength(255);
         });
+        modelBuilder.Entity<ViolationRecord>()
+            .HasKey(svc => new { svc.ViolatedAt, svc.PosId });
+            
         modelBuilder.Entity<Violation>(entity =>
         {
             entity.HasKey(e => e.Id);

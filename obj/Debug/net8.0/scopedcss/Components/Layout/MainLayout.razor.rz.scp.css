@@ -8,14 +8,20 @@
 
 main[b-el1nai9jpu] {
     flex: 1;
-    overflow-y: auto;
-    position: sticky;
+    position: relative;
 }
-
+.main-content[b-el1nai9jpu] {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
 .sidebar[b-el1nai9jpu] {
     background-image: linear-gradient(270deg, #000 0%, #B1A8B9 1000%);
     box-shadow: inset;
-    height: auto;
+    overflow-y: auto;
+    height: max-content;
+    position: sticky;
+    top: 0;
 }
 
 .top-row[b-el1nai9jpu] {
