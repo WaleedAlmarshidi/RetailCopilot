@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RetailCopilot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6802b87a641ad5f45783aaeb56e546050560d889")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbdafef765be69fc082855bf73697ee937418a84")]
 [assembly: System.Reflection.AssemblyProductAttribute("RetailCopilot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RetailCopilot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

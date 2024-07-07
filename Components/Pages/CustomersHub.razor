@@ -225,7 +225,6 @@
             await dbContext.SaveChangesAsync();
         }
         catch(Exception e){
-            throw e;
             Console.WriteLine($"Error in createNewContact {e.Message}");
         }
     }
