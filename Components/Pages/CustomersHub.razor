@@ -195,7 +195,7 @@
                 phone = SearchTerm
             });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("https://faisalaldayel-bv.odoo.com/api/bv/contact", content);
+            var response = await httpClient.PostAsync("https://faisalaldayel.odoo.com/api/bv/contact", content);
 
             if(response.IsSuccessStatusCode){
                 string jsonString = await response.Content.ReadAsStringAsync();
